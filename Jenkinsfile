@@ -24,20 +24,9 @@ node {
       // ------------------------------------
   // -- ETAPA: Sonarqube
    // ------------------------------------
-   stage ('Sonarqube'){
-     withSonarQubeEnv('http://206.189.175.48:9000') {
-                 sh 'mvn -f backend/ clean package sonar:sonar'
-       }
-   }
-   
-    stage("Quality Gate"){
-          timeout(time: 1, unit: 'HOURS') {
-              def qg = waitForQualityGate()
-              if (qg.status != 'OK') {
-                  error "Pipeline aborted due to quality gate failure: ${qg.status}"
-              }
-          }
-      }
+   stage 'Sonarqube'
+   echo 'Inicio procedimiento'
+   sonar-scanner -Dsonar.host.url=http://206.189.175.48:9000 ******** -Dsonar.projectName=Mingeso -Dsonar.projectKey=Mingeso -Dsonar.java.binaries=**/target/classes "-Dsonar.sources=/var/lib/jenkins/workspace/marketMingeso/backend/src, /var/lib/jenkins/workspace/marketMingeso/frontend/src" -Dsonar.projectBaseDir=/var/lib/jenkins/workspace/marketMingeso
    
    // ------------------------------------
    // -- ETAPA: Test
