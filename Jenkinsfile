@@ -22,8 +22,8 @@ node {
    
    
       // ------------------------------------
--   // -- ETAPA: Sonarqube
--   // ------------------------------------
+  // -- ETAPA: Sonarqube
+   // ------------------------------------
    stage ('Sonarqube'){
      withSonarQubeEnv('http://206.189.175.48:9000') {
                  sh 'mvn -f backend/ clean package sonar:sonar'
