@@ -21,6 +21,38 @@ node {
    sh 'mvn -f backend/ clean compile'
    
    
+      // ------------------------------------
+-   // -- ETAPA: Sonarqube
+-   // ------------------------------------
+   stage ('Sonarqube'){
+     withSonarQubeEnv('http://206.189.175.48:9000') {
+                 sh 'mvn -f backend/ clean package sonar:sonar'
+       }
+   }
+   
+    stage("Quality Gate"){
+          timeout(time: 1, unit: 'HOURS') {
+              def qg = waitForQualityGate()
+              if (qg.status != 'OK') {
+                  error "Pipeline aborted due to quality gate failure: ${qg.status}"
+              }
+          }
+      }
+   
+   // ------------------------------------
+-   // -- ETAPA: Test
+-   // ------------------------------------
+-   stage 'Test'
+-   echo 'Ejecutando tests'
+-   try{
+-      sh 'mvn -f backend/ verify'
+-      step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/TEST-*.xml'])
+-   }catch(err) {
+-      step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/TEST-*.xml'])
+-      if (currentBuild.result == 'UNSTABLE')
+-         currentBuild.result = 'FAILURE'
+-      throw err
+-   }
    
    // ------------------------------------
    // -- ETAPA: Instalar
@@ -29,7 +61,4 @@ node {
    echo 'Instala el paquete generado en el repositorio maven'
    sh 'mvn -f backend/ install -Dmaven.test.skip=true'
    
-   stage 'Sonar'
-   echo 'Se ejecuta sonarqube'
-   sh '-Dsonar.host.url=http://206.189.175.48:9000 ******** -Dsonar.projectName=Mingeso -Dsonar.projectKey=Mingeso -Dsonar.java.binaries=**/target/classes "-Dsonar.sources=/var/lib/jenkins/workspace/marketMingeso/backend/src, /var/lib/jenkins/workspace/marketMingeso/frontend/src" -Dsonar.projectBaseDir=/var/lib/jenkins/workspace/marketMingeso'
 }
