@@ -18,7 +18,7 @@ node {
    
    // -- Compilando
    echo 'Compilando aplicación'
-   sh 'mvn -f ./prueba/backend/ clean compile'
+   sh 'mvn -f prueba/backend/ clean compile'
    
    // ------------------------------------
    // -- ETAPA: Test
