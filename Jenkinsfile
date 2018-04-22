@@ -31,5 +31,5 @@ node {
    
    stage 'Sonar'
    echo 'Se ejecuta sonarqube'
-   sh '/var/lib/jenkins/tools/hudson.plugins.sonar.SonarRunnerInstallation/SonarQube/bin/sonar-scanner -Dsonar.host.url=http://206.189.175.48:9000 ******** -Dsonar.projectName=Mingeso -Dsonar.projectKey=Mingeso -Dsonar.java.binaries=**/target/classes "-Dsonar.sources=/var/lib/jenkins/workspace/marketMingeso/backend/src, /var/lib/jenkins/workspace/marketMingeso/frontend/src" -Dsonar.projectBaseDir=/var/lib/jenkins/workspace/marketMingeso'
+   sh '-Dsonar.host.url=http://206.189.175.48:9000 ******** -Dsonar.projectName=Mingeso -Dsonar.projectKey=Mingeso -Dsonar.java.binaries=**/target/classes "-Dsonar.sources=/var/lib/jenkins/workspace/marketMingeso/backend/src, /var/lib/jenkins/workspace/marketMingeso/frontend/src" -Dsonar.projectBaseDir=/var/lib/jenkins/workspace/marketMingeso'
 }
