@@ -20,20 +20,7 @@ node {
    echo 'Compilando aplicación'
    sh 'mvn -f backend/ clean compile'
    
-   // ------------------------------------
-   // -- ETAPA: Test
-   // ------------------------------------
-   stage 'Test'
-   echo 'Ejecutando tests'
-   try{
-      sh 'mvn -f backend/ verify'
-      step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/TEST-*.xml'])
-   }catch(err) {
-      step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/TEST-*.xml'])
-      if (currentBuild.result == 'UNSTABLE')
-         currentBuild.result = 'FAILURE'
-      throw err
-   }
+   
    
    // ------------------------------------
    // -- ETAPA: Instalar
