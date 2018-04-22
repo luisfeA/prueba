@@ -21,13 +21,6 @@ node {
    sh 'mvn -f backend/ clean compile'
    
    
-      // ------------------------------------
-  // -- ETAPA: Sonarqube
-   // ------------------------------------
-   stage 'Sonarqube'
-   echo 'Inicio procedimiento'
-   sh 'mvn -f backend/ sonar:sonar -Dsonar.host.url=http://206.189.175.48:9000 ******** -Dsonar.projectName=Mingeso -Dsonar.projectKey=Mingeso -Dsonar.java.binaries=**/target/classes "-Dsonar.sources=/backend/src, /frontend/src"'
-   
    // ------------------------------------
    // -- ETAPA: Test
    // ------------------------------------
@@ -43,11 +36,21 @@ node {
     throw err
   }
    
+   
    // ------------------------------------
    // -- ETAPA: Instalar
    // ------------------------------------
    stage 'Instalar'
    echo 'Instala el paquete generado en el repositorio maven'
    sh 'mvn -f backend/ install -Dmaven.test.skip=true'
+   
+   
+      // ------------------------------------
+  // -- ETAPA: Sonarqube
+   // ------------------------------------
+   stage 'Sonarqube'
+   echo 'Inicio procedimiento'
+   sh 'mvn -f backend/ sonar:sonar -Dsonar.host.url=http://206.189.175.48:9000 ******** -Dsonar.projectName=Mingeso -Dsonar.projectKey=Mingeso -Dsonar.java.binaries=**/target/classes "-Dsonar.sources=/backend/src, /frontend/src"'
+   
    
 }
