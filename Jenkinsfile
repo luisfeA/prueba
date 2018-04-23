@@ -50,7 +50,7 @@ node {
    // ------------------------------------
    stage 'Sonarqube'
    echo 'Inicio procedimiento'
-   sh '$ /var/lib/jenkins/tools/hudson.plugins.sonar.SonarRunnerInstallation/SonarQube/bin/sonar-scanner -Dsonar.host.url=http://206.189.175.48:9000 ******** -Dsonar.projectName=Mingeso -Dsonar.projectKey=Mingeso -Dsonar.java.binaries=**/target/classes "-Dsonar.sources=/backend/src, /frontend/src"'
+   sh 'mvn sonar:sonar -Dsonar.host.url=http://206.189.175.48:9000 ******** -Dsonar.projectName=Mingeso -Dsonar.projectKey=Mingeso -Dsonar.java.binaries=**/target/classes "-Dsonar.sources=/backend/src, /frontend/src"'
    
    
 }
