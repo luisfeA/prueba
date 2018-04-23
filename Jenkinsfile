@@ -45,18 +45,27 @@ node {
    sh 'mvn -f backend/ install -Dmaven.test.skip=true'
    
    
-      // ------------------------------------
-  // -- ETAPA: Sonarqube
    // ------------------------------------
-   stage 'Sonarqube'
-   echo 'Realiza el escaneo del programa'
+   // -- ETAPA: Sonarqube
+   // ------------------------------------
+ 
    stage ('SonarQube analysis') {
    withSonarQubeEnv('Sonar') {
+      echo 'Realiza el escaneo del programa'
       sh "/var/lib/jenkins/tools/hudson.plugins.sonar.SonarRunnerInstallation/SonarQube/bin/sonar-scanner -Dsonar.projectKey=Mingeso -Dsonar.jacoco.reportPaths=./backend/target/jacoco.exec -Dsonar.java.binaries=./backend/target/classes -Dsonar.sources=./backend/src,./frontend/src -Dsonar.projectBaseDir=./"
       
       }
    
   
+   }
+   // ------------------------------------
+   // -- ETAPA: Testlisnk
+   // ------------------------------------
+   stage ('Testlink'){
+      echo 'Se inicia testlink'
+      sh '/bin/sh -xe /tmp/jenkins6938644856222977257.sh'
+      sh 'cd frontend'
+      sh 'yarn'
    }
    
    
