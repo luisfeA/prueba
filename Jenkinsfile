@@ -50,7 +50,11 @@ node {
    // ------------------------------------
    stage 'Sonarqube'
    echo 'Inicio procedimiento'
-   sh 'mvn sonar:sonar -f backend/ -Dsonar.host.url=http://206.189.175.48:9000 ******** -Dsonar.projectName=Mingeso -Dsonar.jacoco.reportPaths=/var/lib/jenkins/workspace/marketMingeso/backend/target/jacoco.exec -Dsonar.projectKey=Mingeso -Dsonar.java.binaries=/var/lib/jenkins/workspace/marketMingeso/backend/target/classes "-Dsonar.sources=/var/lib/jenkins/workspace/marketMingeso/backend/src, /var/lib/jenkins/workspace/marketMingeso/frontend/src" -Dsonar.projectBaseDir=/var/lib/jenkins/workspace/marketMinges'
+   stage ('SonarQube analysis') {
+    withSonarQubeEnv('http://206.189.175.48:9000') {
+        sh 'mvn sonar:sonar'
+    }  
+}
    
    
 }
