@@ -1,7 +1,8 @@
 import * as React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap-theme.css';
-
+import { Button } from 'react-bootstrap';
+import './ProductList.css'
 
 class ProductList extends React.Component {
 
@@ -24,7 +25,6 @@ class ProductList extends React.Component {
 
     render() {
         const {products, isLoading} = this.state;
-
         if (isLoading) {
             return <p>Cargando...</p>;
         }
@@ -32,17 +32,33 @@ class ProductList extends React.Component {
 
         return (
             <div>
-                
-              <h2>Productos:</h2>
-              {products.map((product) =>
-                <div key={product.id}>
-                    {'Codigo: '}{product.codigo}{' - '}
-                    {'Nombre: '}{product.nombre}{' - '}
-                    {'Categoría: '}{product.categoria}{' - '}
-                    
-                </div>
-              )}
-            </div>
+                          
+            <table id="t02">
+              <tbody>
+                <tr>
+                  <th>ID</th>
+                  <th>Codigo</th>
+                  <th>Nombre</th> 
+                  <th>Categoria</th>
+                  <th>Fecha</th>
+                  <th>Precio</th>
+            
+                </tr>
+                        {products.map((product) =>
+                <tr key={product.id}>
+                    <th>{product.id}</th>
+                    <th>{product.codigo}</th>
+                    <th>{product.nombre}</th>
+                    <th>{product.categoria}</th>
+                    <th>{product.fecha}</th>
+                    <th>{product.precio}</th>
+                </tr> 
+                        )}
+              </tbody>
+            </table>
+        </div>
+
+            
         );
         }
 }
