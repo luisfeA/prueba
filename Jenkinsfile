@@ -2,7 +2,7 @@ node {
    // ------------------------------------
    // -- ETAPA: Compilar
    // ------------------------------------
-   stage 'Compilar'
+   stage 'Compiler'
    
    // -- Configura variables
    echo 'Configurando variables'
@@ -40,7 +40,7 @@ node {
    // ------------------------------------
    // -- ETAPA: Instalar
    // ------------------------------------
-   stage 'Instalar'
+   stage 'Install'
    echo 'Instala el paquete generado en el repositorio maven'
    sh 'mvn -f backend/ install -Dmaven.test.skip=true'
    
@@ -49,7 +49,7 @@ node {
   // -- ETAPA: Sonarqube
    // ------------------------------------
    stage 'Sonarqube'
-   echo 'Inicio procedimiento'
+   echo 'Realiza el escaneo del programa'
    stage ('SonarQube analysis') {
    withSonarQubeEnv('Sonar') {
       sh "/var/lib/jenkins/tools/hudson.plugins.sonar.SonarRunnerInstallation/SonarQube/bin/sonar-scanner -Dsonar.projectKey=Mingeso -Dsonar.jacoco.reportPaths=./backend/target/jacoco.exec -Dsonar.java.binaries=./backend/target/classes -Dsonar.sources=./backend/src,./frontend/src -Dsonar.projectBaseDir=./"
