@@ -52,7 +52,7 @@ node {
    echo 'Inicio procedimiento'
    stage ('SonarQube analysis') {
    withSonarQubeEnv('Sonar') {
-      sh "/var/lib/jenkins/tools/hudson.plugins.sonar.SonarRunnerInstallation/SonarQube/bin/sonar-scanner -Dsonar.projectKey=Mingeso -Dsonar.java.binaries=/backend/target/classes -Dsonar.sources=/backend/src -Dsonar.projectBaseDir=./"
+      sh "/var/lib/jenkins/tools/hudson.plugins.sonar.SonarRunnerInstallation/SonarQube/bin/sonar-scanner -Dsonar.projectKey=Mingeso -Dsonar.java.binaries=./backend/target/classes -Dsonar.sources=./backend/src -Dsonar.projectBaseDir=./"
       
    }
    
