@@ -51,7 +51,7 @@ node {
    stage 'Sonarqube'
    echo 'Inicio procedimiento'
    stage ('SonarQube analysis') {
-   withSonarQubeEnv('Sonar') {
+   withSonarQubeEnv('SonarQube') {
       sh "/var/lib/jenkins/tools/hudson.plugins.sonar.SonarRunnerInstallation/SonarQube/bin/sonar-scanner"  
    }
    
