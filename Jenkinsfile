@@ -54,14 +54,10 @@ node {
    withSonarQubeEnv('Sonar') {
       sh "/var/lib/jenkins/tools/hudson.plugins.sonar.SonarRunnerInstallation/SonarQube/bin/sonar-scanner -Dsonar.projectKey=Mingeso -Dsonar.java.binaries=./backend/target/classes -Dsonar.sources=./backend/src -Dsonar.projectBaseDir=./"
       
-   }
+      }
    
-   def qualitygate = waitForQualityGate()
-   if (qualitygate.status != "OK") {
-      error "Pipeline aborted due to quality gate coverage failure: ${qualitygate.status}"
+  
    }
-
-}
    
    
 }
