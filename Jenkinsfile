@@ -51,8 +51,9 @@ node {
    stage 'Sonarqube'
    echo 'Inicio procedimiento'
    stage ('SonarQube analysis') {
-   withSonarQubeEnv('SonarQube') {
-      sh "/var/lib/jenkins/tools/hudson.plugins.sonar.SonarRunnerInstallation/SonarQube/bin/sonar-scanner"  
+   withSonarQubeEnv('Sonar') {
+      sh "/var/lib/jenkins/tools/hudson.plugins.sonar.SonarRunnerInstallation/SonarQube/bin/sonar-scanner -Dsonar.projectKey=Mingeso -Dsonar.java.binaries=/var/lib/jenkins/workspace/marketMingeso/backend/target/classes -Dsonar.sources=/backend/src, /frontend/src -Dsonar.projectBaseDir=./"
+      
    }
    
    def qualitygate = waitForQualityGate()
