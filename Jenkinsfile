@@ -69,10 +69,6 @@ node {
    }*/
    
    stage ('Deploy'){
-      sh 'cd frontend'
-      sh 'yarn'
-      sh 'yarn build'
-      sh 'cd ..'
       sh 'rm -rf /opt/tomcat/webapps/frontendGrupo5'
       sh 'mkdir /opt/tomcat/webapps/frontendGrupo5'
       sh 'cp -R frontend/build/* /opt/tomcat/webapps/frontendGrupo5'
