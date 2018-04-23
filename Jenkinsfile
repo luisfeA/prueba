@@ -61,11 +61,21 @@ node {
    // ------------------------------------
    // -- ETAPA: Testlisnk
    // ------------------------------------
-   stage ('Testlink'){
+  /* stage ('Testlink'){
       echo 'Se inicia testlink'
       sh '/bin/sh -xe /tmp/jenkins6938644856222977257.sh'
       sh 'cd frontend'
       sh 'yarn'
+   }*/
+   
+   stage ('Deploy'){
+      sh 'cd frontend'
+      sh 'yarn'
+      sh 'yarn build'
+      sh 'cd ..'
+      sh 'rm -rf /opt/tomcat/webapps/frontendGrupo5'
+      sh 'mkdir /opt/tomcat/webapps/frontendGrupo5'
+      sh 'cp -R frontend/build/* /opt/tomcat/webapps/frontendGrupo5'
    }
    
    
