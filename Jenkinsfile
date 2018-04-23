@@ -51,9 +51,15 @@ node {
    stage 'Sonarqube'
    echo 'Inicio procedimiento'
    stage ('SonarQube analysis') {
-    withSonarQubeEnv('http://206.189.175.48:9000') {
-        sh 'mvn sonar:sonar'
-    }  
+   withSonarQubeEnv('Sonar') {
+      sh "/var/lib/jenkins/tools/hudson.plugins.sonar.SonarRunnerInstallation/SonarQube/bin/sonar-scanner"  
+   }
+   
+   def qualitygate = waitForQualityGate()
+   if (qualitygate.status != "OK") {
+      error "Pipeline aborted due to quality gate coverage failure: ${qualitygate.status}"
+   }
+
 }
    
    
