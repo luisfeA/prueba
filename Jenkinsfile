@@ -73,7 +73,7 @@ node {
          curl -s --upload-file target/market-0.0.1-SNAPSHOT.war "http://user:password@tomcat:8080/manager/text/deploy?path=/myapp&update=true&tag=${BUILD_TAG}"
       }
     
-   }
+   
  
    
 }
