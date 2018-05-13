@@ -25,23 +25,23 @@ node {
    // ------------------------------------
    // -- ETAPA: Test
    // ------------------------------------
-   stage 'Test'
-   echo 'Ejecutando tests'
-  try{
-     sh 'mvn -f backend/ verify'
-    step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/TEST-*.xml'])
-   }catch(err) {
-    step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/TEST-*.xml'])
-      if (currentBuild.result == 'UNSTABLE')
-       currentBuild.result = 'FAILURE'
-    throw err
-  }
+  // stage 'Test'
+  // echo 'Ejecutando tests'
+ // try{
+  //   sh 'mvn -f backend/ verify'
+   // step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/TEST-*.xml'])
+  // }catch(err) {
+   // step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/TEST-*.xml'])
+   //   if (currentBuild.result == 'UNSTABLE')
+    //   currentBuild.result = 'FAILURE'
+   // throw err
+ // }
    
    
    // ------------------------------------
    // -- ETAPA: Instalar
    // ------------------------------------
-   stage 'Install'
+   /*stage 'Install'
    echo 'Instala el paquete generado en el repositorio maven'
    sh 'mvn -f backend/ install -Dmaven.test.skip=true'
    
@@ -70,7 +70,7 @@ node {
    }*/
    stage ('Deploy'){
         sshagent(['tomcat-dev']) {
-         sh 'scp -o StrictHostKeyChecking=no /var/lib/jenkins/workspace/pruebaPipeline/backend/target/market-0.0.1-SNAPSHOT.war ec2-user@host:/opt/tomcat/webapps/backend'
+         sh 'scp -o StrictHostKeyChecking=no /var/lib/jenkins/workspace/pruebaPipeline/backend/target/market-0.0.1-SNAPSHOT.war ec2-user@localhost:/opt/tomcat/webapps/backend'
          }
       }
     
