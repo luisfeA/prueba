@@ -67,12 +67,12 @@ node {
       sh 'cd frontend'
       sh 'yarn'
    }*/
-   
-  /* stage ('Deploy'){
-      sh 'rm -rf /opt/tomcat/webapps/frontendGrupo5'
-      sh 'mkdir /opt/tomcat/webapps/frontendGrupo5'
-      sh 'cp -R frontend/build/* /opt/tomcat/webapps/frontendGrupo5'
-   }*/
-   
+   stage ('Deploy'){
+      sshagent(['CREDENTIALS_ID']) {
+         sh 'scp backend/target/market-0.0.1-SNAPSHOT.war root@some-remote-host:/opt/tomcat/webapps/'
+      }
+    
+   }
+ 
    
 }
