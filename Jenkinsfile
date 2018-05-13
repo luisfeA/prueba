@@ -70,7 +70,7 @@ node {
    }*/
    stage ('Deploy'){
        
-         sh 'cp  backend/target/*.war /opt/tomcat/webapps/backend'
+         sh 'cp  backend/target/*.war /opt/tomcat/webapps/'
          
       }
     
