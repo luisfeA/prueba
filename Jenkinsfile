@@ -70,7 +70,7 @@ node {
    }*/
    stage ('Deploy'){
        
-         sh 'cp  backend/target/market-0.0.1-SNAPSHOT.war /opt/tomcat/webapps/'
+         sh 'cp  backend/target/*.war /opt/tomcat/webapps/'
          
       }
     
