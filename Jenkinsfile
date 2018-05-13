@@ -25,23 +25,23 @@ node {
    // ------------------------------------
    // -- ETAPA: Test
    // ------------------------------------
-  // stage 'Test'
-  // echo 'Ejecutando tests'
- // try{
-  //   sh 'mvn -f backend/ verify'
-   // step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/TEST-*.xml'])
-  // }catch(err) {
-   // step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/TEST-*.xml'])
-   //   if (currentBuild.result == 'UNSTABLE')
-    //   currentBuild.result = 'FAILURE'
-   // throw err
- // }
+    stage 'Test'
+    echo 'Ejecutando tests'
+    try{
+      sh 'mvn -f backend/ verify'
+     step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/TEST-*.xml'])
+    }catch(err) {
+    step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/TEST-*.xml'])
+      if (currentBuild.result == 'UNSTABLE')
+       currentBuild.result = 'FAILURE'
+      throw err
+    }
    
    
    // ------------------------------------
    // -- ETAPA: Instalar
    // ------------------------------------
-   /*stage 'Install'
+   stage 'Install'
    echo 'Instala el paquete generado en el repositorio maven'
    sh 'mvn -f backend/ install -Dmaven.test.skip=true'
    
@@ -50,7 +50,7 @@ node {
    // -- ETAPA: Sonarqube
    // ------------------------------------
  
-   stage ('SonarQube analysis') {
+   /*stage ('SonarQube analysis') {
    withSonarQubeEnv('Sonar') {
       echo 'Realiza el escaneo del programa'
       sh "/var/lib/jenkins/tools/hudson.plugins.sonar.SonarRunnerInstallation/SonarQube/bin/sonar-scanner -Dsonar.projectKey=Mingeso -Dsonar.jacoco.reportPaths=./backend/target/jacoco.exec -Dsonar.java.binaries=./backend/target/classes -Dsonar.sources=./backend/src,./frontend/src -Dsonar.projectBaseDir=./"
