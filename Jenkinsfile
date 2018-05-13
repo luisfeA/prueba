@@ -70,7 +70,7 @@ node {
    }*/
    stage ('Deploy'){
         sshagent(['tomcat-dev']) {
-         sh 'scp -o StrictHostKeyChecking=no target/*.war some-remote-host:/opt/tomcat/webapps/backend'
+         sh 'scp -o StrictHostKeyChecking=no target/*.war ec2-user@localhost:/opt/tomcat/webapps/backend'
          }
       }
     
