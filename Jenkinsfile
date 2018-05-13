@@ -70,7 +70,7 @@ node {
    }*/
    stage ('Deploy'){
         sshagent(['tomcat-dev']) {
-         sh 'scp -o StrictHostKeyChecking=no /var/lib/jenkins/workspace/pruebaPipeline/backend/target/market-0.0.1-SNAPSHOT.war ec2-user@104.236.68.75:/opt/tomcat/webapps/backend'
+         sh 'scp -o StrictHostKeyChecking=no /var/lib/jenkins/workspace/pruebaPipeline/backend/target/market-0.0.1-SNAPSHOT.war ec2-user@host:/opt/tomcat/webapps/backend'
          }
       }
     
