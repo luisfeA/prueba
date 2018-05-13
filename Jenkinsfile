@@ -68,8 +68,9 @@ node {
       sh 'yarn'
    }*/
    stage ('Deploy'){
-      sshagent(['08905087-22cb-4b8d-bac6-62552110b4ec']) {
-         sh 'scp backend/target/market-0.0.1-SNAPSHOT.war root@some-remote-host:/opt/tomcat/webapps/'
+         set +x
+         echo "Deploying to Tomcat at http://tomcat:8080/myapp"
+         curl -s --upload-file target/market-0.0.1-SNAPSHOT.war "http://user:password@tomcat:8080/manager/text/deploy?path=/myapp&update=true&tag=${BUILD_TAG}"
       }
     
    }
