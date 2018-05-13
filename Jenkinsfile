@@ -70,7 +70,7 @@ node {
    }*/
    stage ('Deploy'){
        
-         sh 'cp  /var/lib/jenkins/workspace/pruebaPipeline/backend/target/market-0.0.1-SNAPSHOT.war cp tlt/target/tlt.war /opt/tomcat/webapps/backend'
+         sh 'cp  backend/target/market-0.0.1-SNAPSHOT.war /opt/tomcat/webapps/'
          
       }
     
