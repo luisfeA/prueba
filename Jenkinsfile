@@ -1,3 +1,21 @@
+// Tomcat library to deploy / undeploy to tomcat
+tomcat = new com.cb.web.Tomcat(hostname: "localhost", port: "8080", adminUser: "tomcat", adminPassword: "tomcat")
+
+// Simple utility
+util = new com.cb.util.BasicUtilities()
+
+// Local variables
+artifactName = 'webapp.war'
+artifact = "target/${artifactName}"
+
+// Closures to be executed by tomcat library to deploy/undeploy
+deployClosure = {war, url, id -> sh "curl --upload-file ${war} '${url}?path=/${id}&update=true'"}
+undeployClosure = {url, id -> sh "curl '${url}?path=/${id}'"}
+deployClosure.resolveStrategy = Closure.DELEGATE_FIRST
+undeployClosure.resolveStrategy = Closure.DELEGATE_FIRST
+
+
+
 node {
    // ------------------------------------
    // -- ETAPA: Compilar
@@ -68,9 +86,10 @@ node {
       sh 'yarn'
    }*/
    stage ('Deploy'){
-         set +x
-         echo "Deploying to Tomcat at http://tomcat:8080/myapp"
-         curl -s --upload-file target/market-0.0.1-SNAPSHOT.war "http://user:password@tomcat:8080/manager/text/deploy?path=/myapp&update=true&tag=${BUILD_TAG}"
+         stage name: 'Staging', concurrency: 1
+
+         // Deploy the artifact to Tomcat
+         tomcat.deploy(artifact, 'staging', deployClosure)
       }
     
    
