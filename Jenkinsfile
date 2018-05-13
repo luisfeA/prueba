@@ -69,9 +69,9 @@ node {
       sh 'yarn'
    }*/
    stage ('Deploy'){
-        sshagent(['tomcat-dev']) {
-         sh 'scp -o StrictHostKeyChecking=no /var/lib/jenkins/workspace/pruebaPipeline/backend/target/market-0.0.1-SNAPSHOT.war ec2-user@localhost:/opt/tomcat/webapps/backend'
-         }
+       
+         sh 'cp  /var/lib/jenkins/workspace/pruebaPipeline/backend/target/market-0.0.1-SNAPSHOT.war cp tlt/target/tlt.war /opt/tomcat/webapps/backend'
+         
       }
     
    
